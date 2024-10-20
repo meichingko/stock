@@ -1,0 +1,20 @@
+<div dndDropzone (dndDrop)="onDrop($event, waveFormListData)">
+	<div class=" dndPlaceholder" dndPlaceholderRef>
+	</div>
+
+
+
+	<div *ngFor="let d of waveFormListData;" [dndDraggable]="d.id" [dndEffectAllowed]="'move'" (dndMoved)="onDragged(d.id, waveFormListData, 'move')">
+		<h1>{{d.id}}</h1>
+
+		<pixie-highcharts [type]="'line'" [id]="d.id" [zoomType]="'x'" [data]="d.options.series" [xAxis]="waveFormxAxis" [yAxis]="{startOnTick: false, endOnTick: false}"
+		 [isStock]="true" [isRangeSelector]="false" [isBoost]="true" [isAxisPrefix]="true" [boostType]="['arearange']" (load)="d.chart=$event">
+			<xAxis (afterSetExtremes)="onWaveformAfterSetExtremes($event,d)"></xAxis>
+		</pixie-highcharts>
+
+
+		<!-- <highcharts-chart id="chart" [Highcharts]="Highcharts" [constructorType]="'stockChart'" [options]="d.options" (chartInstance)="d.chart=$event"
+		 [oneToOne]="true" [(update)]="updateFlag"></highcharts-chart> -->
+	</div>
+
+</div>
